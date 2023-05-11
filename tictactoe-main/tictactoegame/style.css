@@ -1,0 +1,197 @@
+* {
+    color: #fff;
+}
+
+body {
+    background-color: #000;
+}
+
+.buttons {
+    position: relative;
+    bottom: 40px;
+}
+
+.reset-btn {
+    position: relative;
+    margin: 0 10px;
+    padding: 20px 30px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-size: 25px;
+    top: 630px;
+    background-color: #000;
+    font-size: 25px;
+    width: 400px;
+    height: 75px;
+}
+
+.reset-btn:hover {
+    background-color: #c5c5c5;
+}
+
+.title {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 20px;
+
+    /* Add margin to create space between title and options */
+}
+
+.buttons {
+    /* Remove the 'position: fixed' property */
+    margin-bottom: 20px;
+    /* Add margin instead of using 'position: fixed' */
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 150px;
+    /* Decrease the height to make room for the game box */
+}
+
+.gamebox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    /* Allow the game box to grow and fill available space */
+    margin-top: -75px;
+    /* Adjust the margin-top value to move the game box further up */
+}
+
+.grid {
+    background-color: #000;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0px;
+    text-align: center;
+
+    /* Adjust the margin-top value to move the grid items further up */
+    margin-top: -70px;
+}
+
+.grid-item {
+    font-size: 200px;
+
+    padding: 10px;
+    /* border: 8px solid #fff; */
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: Operator Mono, Arial, Helvetica, sans-serif;
+}
+
+.score {
+    padding: 10px;
+    width: 300px;
+    height: 120px;
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    line-height: 0;
+    /* Adjust this value to control the line spacing */
+    border: 1px solid #fff;
+}
+
+#item1 {
+    border-bottom: solid 8px #fff;
+    border-right: solid 8px #fff;
+}
+
+#item2 {
+    border-bottom: solid 8px #fff;
+    border-right: solid 8px #fff;
+}
+
+#item3 {
+    border-bottom: solid 8px #fff;
+
+}
+
+#item4 {
+    border-bottom: solid 8px #fff;
+    border-right: solid 8px #fff;
+}
+
+#item5 {
+    border-bottom: solid 8px #fff;
+    border-right: solid 8px #fff;
+}
+
+#item6 {
+    border-bottom: solid 8px #fff;
+
+}
+
+#item7 {
+    border-right: solid 8px #fff;
+}
+
+#item8 {
+    border-right: solid 8px #fff;
+}
+
+@media screen and (max-width: 896px) {
+    .score {
+        width: 100px;
+
+    }
+}
+
+@media screen and (max-width: 656px) {
+
+    .score {
+        position: absolute;
+        top: 585px;
+        height: 100px
+    }
+
+    .grid-item {
+        font-size: 120px;
+        width: 100px;
+        height: 100px;
+
+    }
+
+    .reset-btn {
+
+        top: 500px;
+
+    }
+
+}
+
+@media screen and (max-width: 375px) {
+    .reset-btn {
+        width: 300px;
+        height: 75px;
+        top: 350px;
+    }
+
+    .score {
+        display: none;
+    }
+
+    .grid-item {
+        font-size: 90px;
+        width: 80px;
+        height: 80px;
+    }
+}
+
+* {
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer */
+    user-select: none;
+    /* Standard syntax */
+}
