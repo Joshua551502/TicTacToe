@@ -4,9 +4,14 @@ var resetBtn = document.querySelector('.reset-btn');
 var char = '';
 var player1 = document.querySelector('.player1');
 var computer = document.querySelector('.computer');
-var playerScore = 1;
+var playerScore = 0;
 var computerScore = 1;
 var click = new Audio("sounds/click.mp3");
+var win = new Audio("sounds/win.mp3");
+var lose = new Audio("sounds/lose.mp3");
+var reset = new Audio("sounds/reset.mp3");
+var draw = new Audio("sounds/draw.mp3");
+
 
 function computerMove() {
     var emptyItems = Array.from(gridItems).filter(function (item) {
@@ -60,10 +65,10 @@ function handleClick() {
             }
         }, 1000);
     }
-    checkWinner('X');
 
     if (checkWinner('X') === null)
-        checkFull();
+    (checkFull())
+
 }
 
 var winnerFound = false;
@@ -84,13 +89,15 @@ function checkWinner(char) {
         if (combo.every(cell => gridItems[cell].textContent === char)) {
             if (char === 'X') {
                 document.getElementById('winner').innerHTML = 'You Won!';
-                document.getElementById('player').innerHTML = 'YOU: ' + playerScore++;
-
+                document.getElementById('player').innerHTML = 'YOU: ' + (++playerScore);
+                win.play();
             } else {
                 document.getElementById('winner').innerHTML = 'Computer Won!';
                 document.getElementById('computer').innerHTML = 'CPU: ' + computerScore++;
+                lose.play();
             }
             winnerFound = true;
+            
             disableBoard();
             return;
         }
@@ -114,13 +121,16 @@ resetBtn.addEventListener('click', function () {
 
     // reset char to 'X' to ensure player goes first
     char = 'X';
+    reset.play();   
 });
 
 
 function checkFull() {
     if (gridItems[0].textContent != '' && gridItems[1].textContent != '' && gridItems[2].textContent != '' && gridItems[3].textContent != '' && gridItems[4].textContent != '' && gridItems[5].textContent != '' && gridItems[6].textContent != '' && gridItems[7].textContent != '' && gridItems[8].textContent != '' && checkWinner(char) === null) {
         document.getElementById('winner').innerHTML = 'Draw!';
+        draw.play();
     }
+    
 }
 
 
