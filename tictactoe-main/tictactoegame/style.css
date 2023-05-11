@@ -8,10 +8,11 @@
     /* Internet Explorer */
     user-select: none;
     /* Standard syntax */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 body {
-    background-color: #000;
+    background-color: #012042;
 }
 
 .buttons {
@@ -27,14 +28,14 @@ body {
     border-radius: 5px;
     font-size: 25px;
     top: 630px;
-    background-color: #000;
+    background-color: #012042;
     font-size: 25px;
     width: 400px;
     height: 75px;
 }
 
 .reset-btn:hover {
-    background-color: #c5c5c5;
+    background-color: #022f5f;
 }
 
 .title {
@@ -70,7 +71,7 @@ body {
 }
 
 .grid {
-    background-color: #000;
+    background-color: #012042;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 0px;
@@ -91,7 +92,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-family: Operator Mono, Arial, Helvetica, sans-serif;
+
 }
 
 .score {

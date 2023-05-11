@@ -4,7 +4,7 @@ var resetBtn = document.querySelector('.reset-btn');
 var char = '';
 var player1 = document.querySelector('.player1');
 var computer = document.querySelector('.computer');
-var playerScore = 0;
+var playerScore = 1;
 var computerScore = 1;
 
 //audio
@@ -23,7 +23,7 @@ function computerMove() {
     var index = Math.floor(Math.random() * emptyItems.length);
 
     emptyItems[index].textContent = 'O';
-    emptyItems[index].style.color = '#0020c2';
+    emptyItems[index].style.color = '#08BC6A';
     click.play();
     checkWinner('O');
 
@@ -54,7 +54,7 @@ function handleClick() {
 
     if (this.textContent === '') {
         this.textContent = char;
-        this.style.color = '#c20000';
+        this.style.color = '#F22901';
         click.play();
         flag = true;
     }
@@ -90,11 +90,11 @@ function checkWinner(char) {
     for (const combo of winningCombinations) {
         if (combo.every(cell => gridItems[cell].textContent === char)) {
             if (char === 'X') {
-                document.getElementById('winner').innerHTML = 'You Won!';
-                document.getElementById('player').innerHTML = 'YOU: ' + (++playerScore);
+                document.getElementById('winner').innerHTML = '<span style="color: #F22901">You Won!</span>';
+                document.getElementById('player').innerHTML = 'YOU: ' + playerScore++;
                 win.play();
             } else {
-                document.getElementById('winner').innerHTML = 'Computer Won!';
+                document.getElementById('winner').innerHTML = '<span style="color: #08BC6A">CPU Won!</span>';
                 document.getElementById('computer').innerHTML = 'CPU: ' + computerScore++;
                 lose.play();
             }
