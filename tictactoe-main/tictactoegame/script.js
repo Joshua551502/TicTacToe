@@ -6,6 +6,8 @@ var player1 = document.querySelector('.player1');
 var computer = document.querySelector('.computer');
 var playerScore = 0;
 var computerScore = 1;
+
+//audio
 var click = new Audio("sounds/click.mp3");
 var win = new Audio("sounds/win.mp3");
 var lose = new Audio("sounds/lose.mp3");
