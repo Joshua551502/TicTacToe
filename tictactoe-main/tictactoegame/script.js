@@ -6,6 +6,7 @@ var player1 = document.querySelector('.player1');
 var computer = document.querySelector('.computer');
 var playerScore = 1;
 var computerScore = 1;
+var winnerFound = false;
 
 //audio
 var click = new Audio("sounds/click.mp3");
@@ -69,11 +70,12 @@ function handleClick() {
     }
 
     if (checkWinner('X') === null)
-    (checkFull())
+        checkFull();
+
 
 }
 
-var winnerFound = false;
+
 
 function checkWinner(char) {
     const winningCombinations = [
@@ -99,7 +101,7 @@ function checkWinner(char) {
                 lose.play();
             }
             winnerFound = true;
-            
+
             disableBoard();
             return;
         }
@@ -123,7 +125,7 @@ resetBtn.addEventListener('click', function () {
 
     // reset char to 'X' to ensure player goes first
     char = 'X';
-    reset.play();   
+    reset.play();
 });
 
 
@@ -132,7 +134,7 @@ function checkFull() {
         document.getElementById('winner').innerHTML = 'Draw!';
         draw.play();
     }
-    
+
 }
 
 
