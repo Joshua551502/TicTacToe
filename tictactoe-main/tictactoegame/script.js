@@ -7,6 +7,7 @@ var computer = document.querySelector('.computer');
 var playerScore = 1;
 var computerScore = 1;
 var winnerFound = false;
+var winner;
 
 //audio
 var click = new Audio("sounds/click.mp3");
@@ -75,8 +76,6 @@ function handleClick() {
 
 }
 
-
-
 function checkWinner(char) {
     const winningCombinations = [
         [0, 1, 2],
@@ -94,13 +93,17 @@ function checkWinner(char) {
             if (char === 'X') {
                 document.getElementById('winner').innerHTML = '<span style="color: #F22901">You Won!</span>';
                 document.getElementById('player').innerHTML = 'YOU: ' + playerScore++;
+                winner = 'X';
                 win.play();
             } else {
                 document.getElementById('winner').innerHTML = '<span style="color: #08BC6A">CPU Won!</span>';
                 document.getElementById('computer').innerHTML = 'CPU: ' + computerScore++;
+                winner = 'O';
                 lose.play();
+
             }
             winnerFound = true;
+            drawLine();
 
             disableBoard();
             return;
@@ -137,4 +140,353 @@ function checkFull() {
 
 }
 
+function drawLine() {
+    const winningCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    var startLine, endLine;
+    var rect1, rect2;
+    var startCenterX, startCenterY;
+    var endCenterX, endCenterY;
+    var canvas;
+    var ctx;
+    var startX, startY;
+    var endX, endY;
+    var lineWidth;
+    var lineColor;
+
+    switch (true) {
+        case winningCombinations[0].every(cell => gridItems[cell].textContent === winner):
+            startLine = document.getElementById("item1");
+            endLine = document.getElementById("item3");
+
+            rect1 = startLine.getBoundingClientRect();
+            rect2 = endLine.getBoundingClientRect();
+
+            startCenterX = rect1.left;
+            startCenterY = rect1.top + rect1.height / 2;
+
+            endCenterX = rect2.right;
+            endCenterY = rect2.top + rect2.height / 2;
+
+            canvas = document.getElementById("line");
+
+            ctx = canvas.getContext("2d");
+
+            startX = startCenterX;
+            startY = startCenterY;
+
+            endX = endCenterX;
+            endY = endCenterY;
+
+            lineWidth = 20;
+
+            if (winner === 'X')
+                lineColor = "red";
+            else
+                lineColor = "green";
+
+            ctx.strokeStyle = lineColor;
+
+            ctx.lineWidth = lineWidth;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            break;
+
+        case winningCombinations[1].every(cell => gridItems[cell].textContent === winner):
+            startLine = document.getElementById("item4");
+            endLine = document.getElementById("item6");
+
+            rect1 = startLine.getBoundingClientRect();
+            rect2 = endLine.getBoundingClientRect();
+
+            startCenterX = rect1.left;
+            startCenterY = rect1.top + rect1.height / 2;
+
+            endCenterX = rect2.right;
+            endCenterY = rect2.top + rect2.height / 2;
+
+            canvas = document.getElementById("line");
+
+            ctx = canvas.getContext("2d");
+
+            startX = startCenterX;
+            startY = startCenterY;
+
+            endX = endCenterX;
+            endY = endCenterY;
+
+            lineWidth = 20;
+
+            if (winner === 'X')
+                lineColor = "red";
+            else
+                lineColor = "green";
+
+            ctx.strokeStyle = lineColor;
+
+            ctx.lineWidth = lineWidth;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            break;
+        case winningCombinations[2].every(cell => gridItems[cell].textContent === winner):
+            startLine = document.getElementById("item7");
+            endLine = document.getElementById("item9");
+
+            rect1 = startLine.getBoundingClientRect();
+            rect2 = endLine.getBoundingClientRect();
+
+            startCenterX = rect1.left;
+            startCenterY = rect1.top + rect1.height / 2;
+
+            endCenterX = rect2.right;
+            endCenterY = rect2.top + rect2.height / 2;
+
+            canvas = document.getElementById("line");
+
+            ctx = canvas.getContext("2d");
+
+            startX = startCenterX;
+            startY = startCenterY;
+
+            endX = endCenterX;
+            endY = endCenterY;
+
+            lineWidth = 20;
+
+            if (winner === 'X')
+                lineColor = "red";
+            else
+                lineColor = "green";
+
+            ctx.strokeStyle = lineColor;
+
+            ctx.lineWidth = lineWidth;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            break;
+        case winningCombinations[3].every(cell => gridItems[cell].textContent === winner):
+            startLine = document.getElementById("item1");
+            endLine = document.getElementById("item7");
+
+            rect1 = startLine.getBoundingClientRect();
+            rect2 = endLine.getBoundingClientRect();
+
+            startCenterX = rect1.left + rect1.width / 2;
+            startCenterY = rect1.top;
+
+            endCenterX = rect2.left + rect2.width / 2;
+            endCenterY = rect2.bottom;
+
+            canvas = document.getElementById("line");
+
+            ctx = canvas.getContext("2d");
+
+            startX = startCenterX;
+            startY = startCenterY;
+
+            endX = endCenterX;
+            endY = endCenterY;
+
+            lineWidth = 20;
+
+            if (winner === 'X')
+                lineColor = "red";
+            else
+                lineColor = "green";
+
+            ctx.strokeStyle = lineColor;
+
+            ctx.lineWidth = lineWidth;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            break;
+        case winningCombinations[4].every(cell => gridItems[cell].textContent === winner):
+            startLine = document.getElementById("item2");
+            endLine = document.getElementById("item8");
+
+            rect1 = startLine.getBoundingClientRect();
+            rect2 = endLine.getBoundingClientRect();
+
+            startCenterX = rect1.left + rect1.width / 2;
+            startCenterY = rect1.top;
+
+            endCenterX = rect2.left + rect2.width / 2;
+            endCenterY = rect2.bottom;
+
+            canvas = document.getElementById("line");
+
+            ctx = canvas.getContext("2d");
+
+            startX = startCenterX;
+            startY = startCenterY;
+
+            endX = endCenterX;
+            endY = endCenterY;
+
+            lineWidth = 20;
+
+            if (winner === 'X')
+                lineColor = "red";
+            else
+                lineColor = "green";
+
+            ctx.strokeStyle = lineColor;
+
+            ctx.lineWidth = lineWidth;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            break;
+        case winningCombinations[5].every(cell => gridItems[cell].textContent === winner):
+            startLine = document.getElementById("item3");
+            endLine = document.getElementById("item9");
+
+            rect1 = startLine.getBoundingClientRect();
+            rect2 = endLine.getBoundingClientRect();
+
+            startCenterX = rect1.left + rect1.width / 2;
+            startCenterY = rect1.top;
+
+            endCenterX = rect2.left + rect2.width / 2;
+            endCenterY = rect2.bottom;
+
+            canvas = document.getElementById("line");
+
+            ctx = canvas.getContext("2d");
+
+            startX = startCenterX;
+            startY = startCenterY;
+
+            endX = endCenterX;
+            endY = endCenterY;
+
+            lineWidth = 20;
+
+            if (winner === 'X')
+                lineColor = "red";
+            else
+                lineColor = "green";
+
+            ctx.strokeStyle = lineColor;
+
+            ctx.lineWidth = lineWidth;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            break;
+
+        case winningCombinations[6].every(cell => gridItems[cell].textContent === winner):
+            startLine = document.getElementById("item1");
+            endLine = document.getElementById("item9");
+
+            rect1 = startLine.getBoundingClientRect();
+            rect2 = endLine.getBoundingClientRect();
+
+            startCenterX = rect1.left + 20;
+            startCenterY = rect1.top + 20;
+
+            endCenterX = rect2.right - 20;
+            endCenterY = rect2.bottom - 20;
+
+            canvas = document.getElementById("line");
+
+            ctx = canvas.getContext("2d");
+
+            startX = startCenterX;
+            startY = startCenterY;
+
+            endX = endCenterX;
+            endY = endCenterY;
+
+            lineWidth = 20;
+
+            if (winner === 'X')
+                lineColor = "red";
+            else
+                lineColor = "green";
+
+            ctx.strokeStyle = lineColor;
+
+            ctx.lineWidth = lineWidth;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            break;
+
+        case winningCombinations[7].every(cell => gridItems[cell].textContent === winner):
+            startLine = document.getElementById("item3");
+            endLine = document.getElementById("item7");
+
+            rect1 = startLine.getBoundingClientRect();
+            rect2 = endLine.getBoundingClientRect();
+
+            startCenterX = rect1.right - 20;
+            startCenterY = rect1.top + 20;
+
+            endCenterX = rect2.left + 20;
+            endCenterY = rect2.bottom - 20;
+
+            canvas = document.getElementById("line");
+
+            ctx = canvas.getContext("2d");
+
+            startX = startCenterX;
+            startY = startCenterY;
+
+            endX = endCenterX;
+            endY = endCenterY;
+
+            lineWidth = 20;
+
+            if (winner === 'X')
+                lineColor = "red";
+            else
+                lineColor = "green";
+
+            ctx.strokeStyle = lineColor;
+
+            ctx.lineWidth = lineWidth;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            break;
+        default:
+            break;
+    }
+
+
+    if (resetBtn.addEventListener('click', function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }));
+
+}
 
