@@ -63,15 +63,21 @@ function handleClick() {
     if (checkWinner('X') === null) {
         checkFull();
         setTimeout(function () {
-            if (!winnerFound && checkWinner('X') === null) {
-                computerMove();
+            if (!winnerFound) {
+                if (checkWinner('X') === null) {
+                    computerMove();
+                }
+            }
+            else if (checkWinner(char) !== null) {
+
+                disableBoard();
+                winnerFound = true; // Set winnerFound to true
             }
         }, 1000);
+
     }
 
-    if (checkWinner(char) !== null) {
-        disableBoard();
-    }
+
 }
 
 
