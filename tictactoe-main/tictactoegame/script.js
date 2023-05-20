@@ -1,5 +1,5 @@
 var player = 1;
-var gridItems = document.querySelectorAll('.grid-item');
+var gridItems = Array.from(document.querySelectorAll('.grid-item'));
 var resetBtn = document.querySelector('.reset-btn');
 var char = '';
 var player1 = document.querySelector('.player1');
@@ -9,16 +9,15 @@ var computerScore = 1;
 var winnerFound = false;
 var winner;
 
-//audio
+// Audio
 var click = new Audio("sounds/click.mp3");
 var win = new Audio("sounds/win.mp3");
 var lose = new Audio("sounds/lose.mp3");
 var reset = new Audio("sounds/reset.mp3");
 var draw = new Audio("sounds/draw.mp3");
 
-
 function computerMove() {
-    var emptyItems = Array.from(gridItems).filter(function (item) {
+    var emptyItems = gridItems.filter(function (item) {
         return item.textContent === '';
     });
 
@@ -27,8 +26,9 @@ function computerMove() {
     emptyItems[index].textContent = 'O';
     emptyItems[index].style.color = '#08BC6A';
     click.play();
-    checkWinner('O');
-
+    if (!checkWinner('O')) {
+        document.getElementById('winner').innerHTML = '<span style="color: #F22901">Your Turn!</span>';
+    }
     enableBoard(); // enable the board after the move is made
 }
 
@@ -44,8 +44,9 @@ function enableBoard() {
     });
 }
 
-function handleClick() {
+let timeoutID; // Variable to store the timeout ID
 
+function handleClick() {
     if (this.textContent !== '' || winnerFound) {
         return; // square already selected or a winner is found, do nothing
     }
@@ -53,33 +54,38 @@ function handleClick() {
     disableBoard(); // disable the board before making the move
 
     char = 'X';
+    document.getElementById('winner').innerHTML = '<span style="color: #08BC6A">CPU Thinking...</span>';
 
-    if (this.textContent === '') {
-        this.textContent = char;
-        this.style.color = '#F22901';
-        click.play();
-    }
+    this.textContent = char;
+    this.style.color = '#F22901';
+    click.play();
 
     if (checkWinner('X') === null) {
         checkFull();
-        setTimeout(function () {
+        timeoutID = setTimeout(function () {
             if (!winnerFound) {
-                if (checkWinner('X') === null) {
-                    computerMove();
-                }
-            }
-            else if (checkWinner(char) !== null) {
-
+                computerMove();
+            } else if (checkWinner(char) !== null) {
                 disableBoard();
                 winnerFound = true; // Set winnerFound to true
             }
         }, 1000);
-
     }
-
-
 }
 
+// Event listener for reset button
+resetBtn.addEventListener('click', function () {
+    clearTimeout(timeoutID); // Cancel the countdown
+    gridItems.forEach(function (item) {
+        item.textContent = '';
+        item.style.color = '';
+    });
+    enableBoard();
+    winnerFound = false;
+    document.getElementById('winner').innerHTML = 'Start Playing!';
+    char = 'X';
+    reset.play();
+});
 
 function checkWinner(char) {
     const winningCombinations = [
@@ -94,15 +100,21 @@ function checkWinner(char) {
     ];
 
     for (const combo of winningCombinations) {
-        if (combo.every(cell => gridItems[cell].textContent === char)) {
+        if (
+            combo.every((cell) => gridItems[cell].textContent === char)
+        ) {
             if (char === 'X') {
-                document.getElementById('winner').innerHTML = '<span style="color: #F22901">You Won!</span>';
-                document.getElementById('player').innerHTML = 'YOU: ' + playerScore++;
+                document.getElementById('winner').innerHTML =
+                    '<span style="color: #F22901">You Won!</span>';
+                document.getElementById('player').innerHTML =
+                    'YOU: ' + playerScore++;
                 winner = 'X';
                 win.play();
             } else {
-                document.getElementById('winner').innerHTML = '<span style="color: #08BC6A">CPU Won!</span>';
-                document.getElementById('computer').innerHTML = 'CPU: ' + computerScore++;
+                document.getElementById('winner').innerHTML =
+                    '<span style="color: #08BC6A">CPU Won!</span>';
+                document.getElementById('computer').innerHTML =
+                    'CPU: ' + computerScore++;
                 winner = 'O';
                 lose.play();
             }
@@ -116,32 +128,19 @@ function checkWinner(char) {
     return null;
 }
 
-
 gridItems.forEach(function (item) {
     item.addEventListener('click', handleClick);
 });
 
-resetBtn.addEventListener('click', function () {
-    gridItems.forEach(function (item) {
-        item.textContent = '';
-        item.style.color = '';
-    });
-    winnerFound = false;
-    document.getElementById('winner').innerHTML = 'Result';
-    enableBoard();
-
-    // reset char to 'X' to ensure player goes first
-    char = 'X';
-    reset.play();
-});
-
-
 function checkFull() {
-    if (gridItems[0].textContent != '' && gridItems[1].textContent != '' && gridItems[2].textContent != '' && gridItems[3].textContent != '' && gridItems[4].textContent != '' && gridItems[5].textContent != '' && gridItems[6].textContent != '' && gridItems[7].textContent != '' && gridItems[8].textContent != '' && checkWinner(char) === null) {
+    var isFull = gridItems.every(function (item) {
+        return item.textContent !== '';
+    });
+
+    if (isFull && checkWinner(char) === null) {
         document.getElementById('winner').innerHTML = 'Draw!';
         draw.play();
     }
-
 }
 
 function drawLine() {
@@ -156,15 +155,17 @@ function drawLine() {
         [2, 4, 6]
     ];
 
-    const canvas = document.getElementById("line");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.getElementById('line');
+    const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < winningCombinations.length; i++) {
         const combination = winningCombinations[i];
-        if (combination.every(cell => gridItems[cell].textContent === winner)) {
-            const startLineId = "item" + (combination[0] + 1);
-            const endLineId = "item" + (combination[combination.length - 1] + 1);
+        if (
+            combination.every((cell) => gridItems[cell].textContent === winner)
+        ) {
+            const startLineId = 'item' + (combination[0] + 1);
+            const endLineId = 'item' + (combination[combination.length - 1] + 1);
 
             const startLine = document.getElementById(startLineId);
             const endLine = document.getElementById(endLineId);
@@ -178,7 +179,7 @@ function drawLine() {
             const endCenterY = rect2.top + rect2.height / 2;
 
             const lineWidth = 15;
-            const lineColor = (winner === 'X') ? "#F22901" : "#08BC6A";
+            const lineColor = winner === 'X' ? '#F22901' : '#08BC6A';
 
             ctx.strokeStyle = lineColor;
             ctx.lineWidth = lineWidth;
@@ -187,10 +188,11 @@ function drawLine() {
             ctx.moveTo(startCenterX, startCenterY);
             ctx.lineTo(endCenterX, endCenterY);
             ctx.stroke();
+            if (resetBtn.addEventListener('click', function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }));
+            break; // Exit the loop after drawing the line
         }
     }
-
-    if (resetBtn.addEventListener('click', function () {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }));
 }
+
